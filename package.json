@@ -1,0 +1,7 @@
+{
+  "name": "uzo-bot",
+  "version": "1.0.0",
+  "main": "index.js",
+  "author": "Woojo Kim <kwoojo0127@gmail.com>",
+  "license": "MIT"
+}
