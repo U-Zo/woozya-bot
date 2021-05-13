@@ -5,8 +5,8 @@
   "author": "Woojo Kim <kwoojo0127@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "build": "webpack",
-    "start": "node build/bundle.js"
+    "build": "tsc",
+    "start": "node build/index.js"
   },
   "dependencies": {
     "@discordjs/opus": "^0.5.3",
