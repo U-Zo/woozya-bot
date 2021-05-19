@@ -23,10 +23,15 @@ client.on('message', (message: Message) => {
     return;
   }
 
-  if (command === '말') {
-    commands.ping(message);
-  } else if (command === 'help') {
-    commands.help(message);
+  switch (command) {
+    case '말':
+      commands.ping(message);
+      break;
+    case 'help':
+      commands.help(message);
+      break;
+    default:
+      message.channel.send('`명령어 없다! !help 확인해라!`');
   }
 });
 
