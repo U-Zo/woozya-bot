@@ -30,6 +30,9 @@ client.on('message', (message: Message) => {
     case 'help':
       commands.help(message);
       break;
+    case 'clean':
+      commands.clean(message);
+      break;
     default:
       message.channel.send('`명령어 없다! !help 확인해라!`');
   }
