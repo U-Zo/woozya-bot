@@ -11,3 +11,5 @@ export interface SongQueue {
   connection: VoiceConnection;
   songs: Song[];
 }
+
+export type GlobalQueue = Map<string, SongQueue>;
