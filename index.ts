@@ -3,6 +3,7 @@ import dotenv from 'dotenv';
 import { prefix } from './config';
 import commands from './commands';
 import { GlobalQueue, SongQueue } from './types/songTypes';
+
 dotenv.config();
 const { DISCORD_TOKEN } = process.env;
 
@@ -38,6 +39,9 @@ client.on('message', (message: Message) => {
       break;
     case 'play':
       commands.play(message, args, globalQueue);
+      break;
+    case 'stop':
+      commands.stop(message, globalQueue);
       break;
     default:
       message.channel.send('`명령어 없다! !help 확인해라!`');
