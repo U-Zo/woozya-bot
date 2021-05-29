@@ -43,6 +43,9 @@ client.on('message', (message: Message) => {
     case 'stop':
       commands.stop(message, globalQueue);
       break;
+    case 'skip':
+      commands.skip(message, globalQueue);
+      break;
     default:
       message.channel.send('`명령어 없다! !help 확인해라!`');
   }
