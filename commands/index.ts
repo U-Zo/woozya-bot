@@ -3,6 +3,7 @@ import help from './help';
 import clean from './clean';
 import play from './play';
 import stop from './stop';
+import skip from './skip';
 
 const commands = {
   ping,
@@ -10,6 +11,7 @@ const commands = {
   clean,
   play,
   stop,
+  skip,
 };
 
 export default commands;
