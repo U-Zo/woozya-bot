@@ -29,6 +29,7 @@ export const prefix = '!'; // prefix character what you want
 - ping: Test command to check discord bot is online
 - play: Play song with song title in message
 - stop: Stop song with disconnection
+- skip: Skip now playing song
 
 ## Develop environment
 
