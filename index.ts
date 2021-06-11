@@ -20,35 +20,7 @@ client.on('message', (message: Message) => {
     return;
   }
 
-  const args = message.content.slice(prefix.length).split(' ');
-  const command = args.shift()?.toLowerCase();
-
-  if (!command) {
-    return;
-  }
-
-  switch (command) {
-    case '말':
-      commands.ping(message);
-      break;
-    case 'help':
-      commands.help(message);
-      break;
-    case 'clean':
-      commands.clean(message);
-      break;
-    case 'play':
-      commands.play(message, args, globalQueue);
-      break;
-    case 'stop':
-      commands.stop(message, globalQueue);
-      break;
-    case 'skip':
-      commands.skip(message, globalQueue);
-      break;
-    default:
-      message.channel.send('`명령어 없다! !help 확인해라!`');
-  }
+  commands(message, globalQueue);
 });
 
 client.login(DISCORD_TOKEN);
