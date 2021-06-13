@@ -1,7 +1,19 @@
 import { Guild, Message } from 'discord.js';
 import ytdl from 'ytdl-core';
-import yts from 'yt-search';
+import search from 'youtube-search';
 import { Song, SongQueue } from '../types/songTypes';
+import { decode } from 'html-entities';
+
+const videoFinder = async (query: string) => {
+  const response = await search(query, {
+    key: process.env.YOUTUBE_API,
+    maxResults: 1,
+  });
+
+  const videos = response.results;
+
+  return videos.length > 0 ? videos[0] : null;
+};
 
 const videoPlayer = async (
   guild: Guild,
@@ -16,7 +28,10 @@ const videoPlayer = async (
     return;
   }
 
-  const stream = ytdl(song.url, { filter: 'audioonly' });
+  const stream = ytdl(song.url, {
+    filter: 'audioonly',
+    quality: 'highestaudio',
+  });
   songQueue?.connection
     .play(stream, { seek: 0, volume: 0.075 })
     .on('finish', () => {
@@ -62,12 +77,6 @@ const play = async (
     ? serverQueue.connection
     : await voiceChannel.join();
 
-  const videoFinder = async (query: string) => {
-    const result = await yts(query);
-
-    return result.videos.length > 1 ? result.videos[0] : null;
-  };
-
   const video = await videoFinder(args.join(' '));
   if (!video) {
     message.channel.send('`음악 찾을 수 없다!`');
@@ -75,8 +84,8 @@ const play = async (
   }
 
   const song: Song = {
-    title: video.title,
-    url: video.url,
+    title: decode(video.title),
+    url: video.link,
   };
 
   if (!serverQueue) {
@@ -89,11 +98,11 @@ const play = async (
 
     queue.set(message.guild.id, queueConstructor);
     queueConstructor.songs.push(song);
-    message.channel.send(`\`🎶 재생 중이다! ${video.title} ✨\``);
+    message.channel.send(`\`🎶 재생 한다! ${song.title} ✨\``);
     videoPlayer(message.guild, song, queue);
   } else {
     serverQueue.songs.push(song);
-    message.channel.send(`\`😎 재생 목록 추가했다! ${video.title} ✨\``);
+    message.channel.send(`\`😎 재생 목록 추가했다! ${song.title} ✨\``);
   }
 };
 
