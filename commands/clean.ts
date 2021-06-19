@@ -9,7 +9,7 @@ const clean = async (message: Message): Promise<void> => {
   const messages = await message.channel.messages.fetch({ limit: 100 });
   const botMessages = messages.filter(
     (m) =>
-      m.author.id === '858667632014131211' || !!m.content.startsWith(prefix)
+      m.author.id === process.env.DISCORD_ID || !!m.content.startsWith(prefix)
   );
 
   const messageLength = botMessages.array().length;
@@ -23,6 +23,7 @@ const clean = async (message: Message): Promise<void> => {
   const toDeleteMessage = await message.channel.send(
     `\`${messageLength}개 메시지 삭제했다!\``
   );
+
   toDeleteMessage.delete({ timeout: 3000 });
 };
 
