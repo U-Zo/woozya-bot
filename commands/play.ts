@@ -33,7 +33,7 @@ const videoPlayer = async (
     quality: 'highestaudio',
   });
   songQueue?.connection
-    .play(stream, { seek: 0, volume: 0.075 })
+    .play(stream, { seek: 0, volume: 0.05 })
     .on('finish', () => {
       songQueue.songs.shift();
       videoPlayer(guild, songQueue.songs[0], queue);
@@ -98,7 +98,7 @@ const play = async (
 
     queue.set(message.guild.id, queueConstructor);
     queueConstructor.songs.push(song);
-    message.channel.send(`\`🎶 재생 한다! ${song.title} ✨\``);
+    message.channel.send(`\`🎶 재생한다! ${song.title} ✨\``);
     videoPlayer(message.guild, song, queue);
   } else {
     serverQueue.songs.push(song);

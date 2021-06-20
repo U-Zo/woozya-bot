@@ -7,6 +7,7 @@ import clean from './clean';
 import play from './play';
 import stop from './stop';
 import skip from './skip';
+import volume from './volume';
 
 const commands = (message: Message, globalQueue: GlobalQueue): void => {
   if (!message.content.startsWith(prefix) || message.author.bot) {
@@ -38,6 +39,9 @@ const commands = (message: Message, globalQueue: GlobalQueue): void => {
       break;
     case 'skip':
       skip(message, globalQueue);
+      break;
+    case 'volume':
+      volume(message, globalQueue, args);
       break;
     default:
       message.channel.send('`명령어 없다! !help 확인해라!`');
