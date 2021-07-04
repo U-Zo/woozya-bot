@@ -1,7 +1,7 @@
 import { Message } from 'discord.js';
 import { GlobalQueue } from '../types/songTypes';
 
-const volume = (message: Message, queue: GlobalQueue, args: string[]): void => {
+const volume = (message: Message, args: string[], queue: GlobalQueue): void => {
   const voiceChannel = message.member?.voice.channel;
 
   if (!voiceChannel) {
@@ -21,12 +21,13 @@ const volume = (message: Message, queue: GlobalQueue, args: string[]): void => {
   }
 
   const volume = Number(args[0]);
-  if (volume > 100 || volume < 1) {
+  if (isNaN(volume) || volume > 100 || volume < 0) {
     message.channel.send('`소리 크기 범위 이상하다!`');
     return;
   }
 
   const volumeRate = Number(args[0]) / 100;
+  process.env.VOLUME = String(volumeRate);
 
   serverQueue.connection.dispatcher.setVolume(volumeRate);
 

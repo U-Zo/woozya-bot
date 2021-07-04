@@ -32,8 +32,9 @@ const videoPlayer = async (
     filter: 'audioonly',
     quality: 'highestaudio',
   });
+
   songQueue?.connection
-    .play(stream, { seek: 0, volume: 0.05 })
+    .play(stream, { seek: 0, volume: Number(process.env.VOLUME) })
     .on('finish', () => {
       songQueue.songs.shift();
       videoPlayer(guild, songQueue.songs[0], queue);
