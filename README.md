@@ -44,4 +44,5 @@ export const prefix = '!'; // prefix character what you want
 - dotenv
 - ffmpeg-static
 - ytdl-core
-- yt-search
+- youtube-search
+- html-entities
