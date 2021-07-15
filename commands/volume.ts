@@ -27,8 +27,7 @@ const volume = (message: Message, args: string[], queue: GlobalQueue): void => {
   }
 
   const volumeRate = Number(args[0]) / 100;
-  process.env.VOLUME = String(volumeRate);
-
+  serverQueue.volume = volumeRate;
   serverQueue.connection.dispatcher.setVolume(volumeRate);
 
   let volumeIcon;

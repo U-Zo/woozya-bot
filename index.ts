@@ -1,4 +1,4 @@
-import Discord, { Message } from 'discord.js';
+import Discord, { Guild, Message, Role } from 'discord.js';
 import dotenv from 'dotenv';
 import { prefix } from './config';
 import commands from './commands';
@@ -14,6 +14,25 @@ client.once('ready', () => {
 });
 
 const globalQueue: GlobalQueue = new Map<string, SongQueue>();
+
+client.on('guildCreate', (guild: Guild) => {
+  guild.roles
+    .create({
+      data: {
+        name: 'Woozya bot',
+        color: 'AQUA',
+        hoist: true,
+      },
+    })
+    .then((r) => {
+      if (!client.user) {
+        return;
+      }
+
+      guild.member(client.user)?.roles.add(r);
+    })
+    .catch((e) => console.log(e));
+});
 
 client.on('message', (message: Message) => {
   if (!message.content.startsWith(prefix) || message.author.bot) {

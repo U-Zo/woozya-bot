@@ -10,6 +10,7 @@ export interface SongQueue {
   textChannel: TextChannel;
   connection: VoiceConnection;
   songs: Song[];
+  volume: number;
 }
 
 export type GlobalQueue = Map<string, SongQueue>;

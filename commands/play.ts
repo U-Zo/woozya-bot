@@ -34,7 +34,7 @@ const videoPlayer = async (
   });
 
   songQueue?.connection
-    .play(stream, { seek: 0, volume: Number(process.env.VOLUME) })
+    .play(stream, { seek: 0, volume: songQueue.volume })
     .on('finish', () => {
       songQueue.songs.shift();
       videoPlayer(guild, songQueue.songs[0], queue);
@@ -95,6 +95,7 @@ const play = async (
       textChannel: message.channel,
       connection,
       songs: [],
+      volume: 0.05,
     };
 
     queue.set(message.guild.id, queueConstructor);
