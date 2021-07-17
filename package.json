@@ -15,10 +15,9 @@
     "ffmpeg-static": "^4.4.0",
     "html-entities": "^2.3.2",
     "youtube-search": "^1.1.6",
-    "ytdl-core": "^4.8.3"
+    "ytdl-core": "^4.9.0"
   },
   "devDependencies": {
-    "@types/dotenv": "^8.2.0",
     "@types/ffmpeg-static": "^3.0.0",
     "@typescript-eslint/eslint-plugin": "^4.28.1",
     "@typescript-eslint/parser": "^4.28.1",
