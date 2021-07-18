@@ -1,4 +1,4 @@
-import Discord, { Guild, Message, Role } from 'discord.js';
+import Discord, { Guild, Message } from 'discord.js';
 import dotenv from 'dotenv';
 import { prefix } from './config';
 import commands from './commands';
