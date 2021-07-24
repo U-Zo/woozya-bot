@@ -21,10 +21,7 @@ const videoPlayer = async (
   queue: Map<string, SongQueue>
 ) => {
   const songQueue = queue.get(guild.id);
-
-  if (!song) {
-    songQueue?.voiceChannel.leave();
-    queue.delete(guild.id);
+  if (!song || !songQueue) {
     return;
   }
 
@@ -33,7 +30,7 @@ const videoPlayer = async (
     quality: 'highestaudio',
   });
 
-  songQueue?.connection
+  songQueue.connection
     .play(stream, { seek: 0, volume: songQueue.volume })
     .on('finish', () => {
       songQueue.songs.shift();
