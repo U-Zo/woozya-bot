@@ -3,7 +3,7 @@ interface CommandName {
   aliases: string[];
 }
 
-const commandNames: CommandName[] = [
+export const commandNames: CommandName[] = [
   {
     name: 'ping',
     aliases: ['말'],
@@ -37,5 +37,3 @@ const commandNames: CommandName[] = [
     aliases: ['목록'],
   },
 ];
-
-export default commandNames;

@@ -11,6 +11,7 @@ export interface SongQueue {
   connection: VoiceConnection;
   songs: Song[];
   volume: number;
+  timeout: NodeJS.Timeout | null;
 }
 
 export type GlobalQueue = Map<string, SongQueue>;

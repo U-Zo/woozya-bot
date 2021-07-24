@@ -3,6 +3,7 @@ import ytdl from 'ytdl-core';
 import search from 'youtube-search';
 import { Song, SongQueue } from '../types/songTypes';
 import { decode } from 'html-entities';
+import { WAITING_TIME } from '../config';
 
 const videoFinder = async (query: string) => {
   const response = await search(query, {
@@ -21,7 +22,21 @@ const videoPlayer = async (
   queue: Map<string, SongQueue>
 ) => {
   const songQueue = queue.get(guild.id);
-  if (!song || !songQueue) {
+  if (!songQueue) {
+    return;
+  }
+
+  if (songQueue.timeout) {
+    clearTimeout(songQueue.timeout);
+    songQueue.timeout = null;
+  }
+
+  if (!song) {
+    songQueue.timeout = setTimeout(() => {
+      songQueue.voiceChannel.leave();
+      queue.delete(guild.id);
+    }, WAITING_TIME);
+
     return;
   }
 
@@ -93,10 +108,15 @@ const play = async (
       connection,
       songs: [],
       volume: 0.05,
+      timeout: null,
     };
 
     queue.set(message.guild.id, queueConstructor);
     queueConstructor.songs.push(song);
+    message.channel.send(`\`🎶 재생한다! ${song.title} ✨\``);
+    videoPlayer(message.guild, song, queue);
+  } else if (!serverQueue.songs.length) {
+    serverQueue.songs.push(song);
     message.channel.send(`\`🎶 재생한다! ${song.title} ✨\``);
     videoPlayer(message.guild, song, queue);
   } else {

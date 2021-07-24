@@ -8,7 +8,7 @@ import play from './play';
 import stop from './stop';
 import skip from './skip';
 import volume from './volume';
-import commandNames from '../lib/constants';
+import { commandNames } from '../lib/constants';
 import list from './list';
 
 const commands = (message: Message, globalQueue: GlobalQueue): void => {
