@@ -9,6 +9,7 @@ const videoFinder = async (query: string) => {
   const response = await search(query, {
     key: process.env.YOUTUBE_API,
     maxResults: 1,
+    type: 'video',
   });
 
   const videos = response.results;
