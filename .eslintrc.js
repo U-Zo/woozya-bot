@@ -1,18 +1,61 @@
 module.exports = {
-  extends: ['plugin:@typescript-eslint/recommended'],
-  plugins: ['@typescript-eslint'],
   env: {
-    es6: true,
+    es2021: true,
+    node: true,
   },
-  globals: {
-    Atomics: 'readonly',
-    SharedArrayBuffer: 'readonly',
-  },
+  extends: [
+    'eslint:recommended',
+    'plugin:@typescript-eslint/recommended',
+    'plugin:prettier/recommended',
+  ],
+  overrides: [
+    {
+      files: ['.eslintrc.{js,cjs}'],
+      parserOptions: {
+        sourceType: 'script',
+      },
+    },
+  ],
   parser: '@typescript-eslint/parser',
   parserOptions: {
-    ecmaVersion: 2018,
+    ecmaVersion: 'latest',
     sourceType: 'module',
-    project: './tsconfig.json',
   },
-  ignorePatterns: ['*.config.js', '.*rc.js'],
+  plugins: ['@typescript-eslint', 'import'],
+  rules: {
+    'import/order': [
+      'error',
+      {
+        groups: [
+          'builtin',
+          'external',
+          'internal',
+          'unknown',
+          'parent',
+          'sibling',
+          'index',
+          'object',
+          'type',
+        ],
+        pathGroups: [
+          {
+            pattern: '*discord*',
+            group: 'external',
+            position: 'before',
+          },
+          {
+            pattern: '@/**',
+            group: 'external',
+            position: 'after',
+          },
+        ],
+        pathGroupsExcludedImportTypes: ['type'],
+        alphabetize: {
+          order: 'asc',
+          caseInsensitive: true,
+        },
+      },
+    ],
+    'sort-imports': ['error', { ignoreDeclarationSort: true }],
+  },
 };
