@@ -1,4 +1,5 @@
 import { Collection } from 'discord.js';
+import { clear } from '@/commands/clear';
 import { ping } from '@/commands/ping';
 import { play } from '@/commands/play';
 import { queue } from '@/commands/queue';
@@ -15,3 +16,4 @@ commands.set(volume.data.name, volume);
 commands.set(queue.data.name, queue);
 commands.set(skip.data.name, skip);
 commands.set(stop.data.name, stop);
+commands.set(clear.data.name, clear);

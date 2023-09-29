@@ -1,4 +1,4 @@
-import { useMainPlayer } from 'discord-player';
+import { QueueRepeatMode, useMainPlayer } from 'discord-player';
 import { SlashCommandBuilder } from 'discord.js';
 import { client } from '@/app';
 import { Command } from '@/commands/Command';
@@ -33,12 +33,17 @@ export const play = new Command(
       const { track } = await player.play(channel, query, {
         nodeOptions: {
           metadata: interaction,
-          volume: 5,
+          volume: 2,
           leaveOnEmptyCooldown: 300000,
-          pauseOnEmpty: true,
-          repeatMode: 3,
+          leaveOnEndCooldown: 300000,
+          leaveOnEmpty: true,
+          leaveOnEnd: false,
+          leaveOnStop: false,
+          leaveOnStopCooldown: 600000,
+          bufferingTimeout: 3000,
+          connectionTimeout: 20000,
+          repeatMode: QueueRepeatMode.AUTOPLAY,
         },
-        audioPlayerOptions: {},
       });
 
       await interaction.followUp({
